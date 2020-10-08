@@ -1,0 +1,5 @@
+.idea
+target
+data.txt
+expected_*
+result_*
