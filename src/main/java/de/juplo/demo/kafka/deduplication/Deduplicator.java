@@ -33,7 +33,9 @@ public class Deduplicator
   public final String host;
   public final int port;
 
-  public Deduplicator(ServerProperties serverProperties)
+  public Deduplicator(
+      ServerProperties serverProperties,
+      StreamsHealthIndicator healthIndicator)
   {
     Properties properties = new Properties();
     properties.put("bootstrap.servers", "kafka:9092");
@@ -58,6 +60,7 @@ public class Deduplicator
         LOG.error("Could not close KafkaStreams!", ex);
       }
     });
+    streams.setStateListener(healthIndicator);
   }
 
   static Topology buildTopology()
