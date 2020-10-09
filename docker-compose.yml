@@ -22,6 +22,10 @@ services:
 
   deduplicator:
     image: juplo/deduplicator:streams
+    ports:
+      - 8080:8080
+    environment:
+      server.address: deduplicator
     depends_on:
       - zookeeper
       - kafka
