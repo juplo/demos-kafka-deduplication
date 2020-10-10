@@ -4,6 +4,7 @@ if [ "$1" = "cleanup" ]
 then
   docker-compose down
   mvn clean
+  rm *.txt
   exit
 fi
 
@@ -17,6 +18,11 @@ else
 fi
 
 docker-compose up -d zookeeper kafka
+
+if [ ! -e data.txt ];
+then
+  echo ./create-data.sh
+fi
 
 while ! [[ $(zookeeper-shell zookeeper:2181 ls /brokers/ids 2> /dev/null) =~ 1001 ]];
 do
