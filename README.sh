@@ -8,10 +8,10 @@ then
   exit
 fi
 
-if [[ $(docker image ls -q juplo/deduplicator:streams) == "" ]]
+if [[ $(docker image ls -q juplo/deduplicator:streams) == "" || "$1" = "build" ]]
 then
-  mvn package
-  docker build -t juplo/deduplicator:streams .
+  mvn package || exit
+  docker build -t juplo/deduplicator:streams . || exit
 else
   echo "Using image existing image:"
   docker image ls juplo/deduplicator:streams
