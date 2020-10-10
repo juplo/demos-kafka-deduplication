@@ -43,7 +43,7 @@ public class DeduplicationTransformerTest
     when(store.get(anyInt())).thenReturn(null);
     when(context.partition()).thenReturn(0);
 
-    Iterator<String> result = transformer.transform("foo", "1").iterator();
+    Iterator<String> result = transformer.transform("1").iterator();
 
     assertThat(result.hasNext()).isTrue();
     assertThat(result.next()).isEqualTo("1");
@@ -60,7 +60,7 @@ public class DeduplicationTransformerTest
     when(store.get(anyInt())).thenReturn(1l);
     when(context.partition()).thenReturn(0);
 
-    Iterator<String> result = transformer.transform("foo", value).iterator();
+    Iterator<String> result = transformer.transform(value).iterator();
 
     assertThat(result.hasNext()).isTrue();
     assertThat(result.next()).isEqualTo(value);
@@ -77,7 +77,7 @@ public class DeduplicationTransformerTest
     when(store.get(anyInt())).thenReturn(7l);
     when(context.partition()).thenReturn(0);
 
-    Iterator<String> result = transformer.transform("foo", value).iterator();
+    Iterator<String> result = transformer.transform(value).iterator();
 
     assertThat(result.hasNext()).isFalse();
     verify(store, never()).put(eq(0), eq(sequenceNumber));

@@ -4,8 +4,8 @@ package de.juplo.demo.kafka.deduplication;
 import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
-import org.apache.kafka.streams.kstream.ValueTransformerWithKey;
-import org.apache.kafka.streams.kstream.ValueTransformerWithKeySupplier;
+import org.apache.kafka.streams.kstream.ValueTransformer;
+import org.apache.kafka.streams.kstream.ValueTransformerSupplier;
 import org.apache.kafka.streams.state.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,10 +79,10 @@ public class Deduplicator
     builder
         .<String, String>stream("input")
         .flatTransformValues(
-            new ValueTransformerWithKeySupplier<String, String, Iterable<String>>()
+            new ValueTransformerSupplier<String, Iterable<String>>()
             {
               @Override
-              public ValueTransformerWithKey<String, String, Iterable<String>> get()
+              public ValueTransformer<String, Iterable<String>> get()
               {
                 return new DeduplicationTransformer();
               }

@@ -38,14 +38,14 @@ public class DeduplicationTransformerIT
     Iterator<String> transformed;
 
     context.setPartition(0);
-    transformed = transformer.transform("1", "1").iterator();
+    transformed = transformer.transform("1").iterator();
     assertThat(transformed.hasNext()).isTrue();
     assertThat(transformed.next()).isEqualTo("1");
     assertThat(transformed.hasNext()).isFalse();
     assertThat(store.get(0)).isEqualTo(1l);
 
     context.setPartition(1);
-    transformed = transformer.transform("2", "2").iterator();
+    transformed = transformer.transform("2").iterator();
     assertThat(transformed.hasNext()).isTrue();
     assertThat(transformed.next()).isEqualTo("2");
     assertThat(transformed.hasNext()).isFalse();
@@ -53,13 +53,13 @@ public class DeduplicationTransformerIT
     assertThat(store.get(1)).isEqualTo(2l);
 
     context.setPartition(0);
-    transformed = transformer.transform("1", "1").iterator();
+    transformed = transformer.transform("1").iterator();
     assertThat(transformed.hasNext()).isFalse();
     assertThat(store.get(0)).isEqualTo(1l);
     assertThat(store.get(1)).isEqualTo(2l);
 
     context.setPartition(0);
-    transformed = transformer.transform("1", "4").iterator();
+    transformed = transformer.transform("4").iterator();
     assertThat(transformed.hasNext()).isTrue();
     assertThat(transformed.next()).isEqualTo("4");
     assertThat(transformed.hasNext()).isFalse();
@@ -68,7 +68,7 @@ public class DeduplicationTransformerIT
 
     // The order is only guaranteed per partition!
     context.setPartition(2);
-    transformed = transformer.transform("3", "3").iterator();
+    transformed = transformer.transform("3").iterator();
     assertThat(transformed.hasNext()).isTrue();
     assertThat(transformed.next()).isEqualTo("3");
     assertThat(transformed.hasNext()).isFalse();
@@ -77,14 +77,14 @@ public class DeduplicationTransformerIT
     assertThat(store.get(2)).isEqualTo(3l);
 
     context.setPartition(1);
-    transformed = transformer.transform("2", "2").iterator();
+    transformed = transformer.transform("2").iterator();
     assertThat(transformed.hasNext()).isFalse();
     assertThat(store.get(0)).isEqualTo(4l);
     assertThat(store.get(1)).isEqualTo(2l);
     assertThat(store.get(2)).isEqualTo(3l);
 
     context.setPartition(2);
-    transformed = transformer.transform("3", "5").iterator();
+    transformed = transformer.transform("5").iterator();
     assertThat(transformed.hasNext()).isTrue();
     assertThat(transformed.next()).isEqualTo("5");
     assertThat(transformed.hasNext()).isFalse();
@@ -94,7 +94,7 @@ public class DeduplicationTransformerIT
 
     // The order is only guaranteed per partition!
     context.setPartition(1);
-    transformed = transformer.transform("2", "6").iterator();
+    transformed = transformer.transform("6").iterator();
     assertThat(transformed.hasNext()).isTrue();
     assertThat(transformed.next()).isEqualTo("6");
     assertThat(transformed.hasNext()).isFalse();
