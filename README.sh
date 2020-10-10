@@ -46,10 +46,10 @@ cat data.txt | kafkacat -K: -b localhost:9092 -t input
 kafkacat -C -b localhost:9092 -t input -e | wc -l
 kafkacat -C -b localhost:9092 -t output -e | wc -l
 
-kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | grep ^0 > result_0.txt
-kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | grep ^1 > result_1.txt
-kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | grep ^2 > result_2.txt
-kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | grep ^3 > result_3.txt
-kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | grep ^4 > result_4.txt
-kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | grep ^5 > result_5.txt
-kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | grep ^6 > result_6.txt
+kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | awk -F: '/^peter/ { print $2 }' > result_peter.txt
+kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | awk -F: '/^franz/ { print $2 }' > result_franz.txt
+kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | awk -F: '/^ute/   { print $2 }' > result_ute.txt
+kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | awk -F: '/^klaus/ { print $2 }' > result_klaus.txt
+kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | awk -F: '/^paul/  { print $2 }' > result_paul.txt
+kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | awk -F: '/^petra/ { print $2 }' > result_petra.txt
+kafkacat -C -b localhost:9092 -t output -e  -f'%k:%s\n' | awk -F: '/^siggi/ { print $2 }' > result_siggi.txt
