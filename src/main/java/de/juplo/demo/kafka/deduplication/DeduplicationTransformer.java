@@ -1,7 +1,6 @@
 package de.juplo.demo.kafka.deduplication;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.header.Headers;
 import org.apache.kafka.streams.kstream.ValueTransformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.apache.kafka.streams.state.KeyValueStore;
@@ -28,11 +27,7 @@ public class DeduplicationTransformer implements ValueTransformer<String, Iterab
   @Override
   public Iterable<String> transform(String value)
   {
-    String topic = context.topic();
     Integer partition = context.partition();
-    long offset = context.offset();
-    Headers headers = context.headers();
-
     long sequenceNumber = Long.parseLong(value);
 
     Long seen = store.get(partition);
